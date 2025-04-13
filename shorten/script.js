@@ -27,7 +27,7 @@ document.getElementById("shorten-btn").addEventListener("click", async () => {
     created: new Date()
   });
 
-  const shortUrl = `https://pxl8.app/?code=${shortCode}`;
+  const shortUrl = `pxl8.app/?code=${shortCode}`;
 
   document.getElementById("result").innerHTML = `
   Short URL: <a href="${shortUrl}" target="_blank">${shortUrl}</a>
