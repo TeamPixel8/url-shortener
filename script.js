@@ -27,7 +27,7 @@ document.getElementById("shorten-btn").addEventListener("click", async () => {
     created: new Date()
   });
 
-  const shortUrl = `https://teampixel8.github.io/url-shortener/redirect.html?code=${shortCode}`;
+  const shortUrl = `https://pxl8.link/?code=${shortCode}`;
 
   document.getElementById("result").innerHTML = `
   Short URL: <a href="${shortUrl}" target="_blank">${shortUrl}</a>
