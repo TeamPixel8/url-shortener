@@ -3,28 +3,29 @@
 <head>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
-  <title>URL Shortener</title>
+  <title>pxl8.app – Shorten Your Links</title>
   <link rel="stylesheet" href="style.css" />
-  <script src="https://www.gstatic.com/firebasejs/10.11.0/firebase-app-compat.js"></script>
-  <script src="https://www.gstatic.com/firebasejs/10.11.0/firebase-firestore-compat.js"></script>
-  <!-- Firebase Core SDK -->
-<script src="https://www.gstatic.com/firebasejs/9.22.0/firebase-app.js"></script>
 
-<!-- Firebase Auth -->
-<script src="https://www.gstatic.com/firebasejs/9.22.0/firebase-auth.js"></script>
-
-<!-- Firebase Firestore -->
-<script src="https://www.gstatic.com/firebasejs/9.22.0/firebase-firestore.js"></script>
-
-<!-- Your Script -->
-<script src="script.js"></script>
+  <!-- Firebase v8 CDN Scripts (Classic Version) -->
+  <script src="https://www.gstatic.com/firebasejs/8.10.1/firebase-app.js"></script>
+  <script src="https://www.gstatic.com/firebasejs/8.10.1/firebase-auth.js"></script>
+  <script src="https://www.gstatic.com/firebasejs/8.10.1/firebase-firestore.js"></script>
 </head>
 <body>
   <div class="container">
-    <h1>URL Shortener</h1>
-    <input type="text" id="long-url" placeholder="Paste your long URL here" />
+    <h1>pxl8.app</h1>
+    <p>Simplify your links. Share them smartly.</p>
+
+    <input type="url" id="long-url" placeholder="Paste your long URL here..." />
     <button id="shorten-btn">Shorten</button>
-    <div id="result"></div>
+
+    <div id="result" class="hidden">
+      <p>Your short link:</p>
+      <input id="shortUrl" readonly />
+    </div>
   </div>
+
+  <!-- Your JS -->
+  <script src="script.js"></script>
 </body>
 </html>
