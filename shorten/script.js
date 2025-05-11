@@ -41,6 +41,17 @@ function getDisplayUrl(url) {
   return url.replace(/^https?:\/\//, '');
 }
 
+// Helper to copy text to clipboard
+async function copyToClipboard(text) {
+  try {
+    await navigator.clipboard.writeText(text);
+    return true;
+  } catch (err) {
+    console.error('Failed to copy:', err);
+    return false;
+  }
+}
+
 // Wait for auth before setting up app
 firebase.auth().onAuthStateChanged(async user => {
   if (!user) {
@@ -79,19 +90,15 @@ firebase.auth().onAuthStateChanged(async user => {
       const shortUrl = `pxl8.app/?go=${shortCode}`;
       document.getElementById("result").classList.remove("hidden");
       
-      // Set the full URL in the hidden input for copying
-      document.getElementById("shortUrl").value = shortUrl;
-      
       // Display the shorter version
       document.getElementById("displayUrl").textContent = shortUrl;
       
       // Copy to clipboard
-      document.getElementById("shortUrl").select();
-      document.execCommand("copy");
+      const success = await copyToClipboard(shortUrl);
       
       // Update copy button text
       const copyBtn = document.getElementById("copy-btn");
-      copyBtn.textContent = "Copied!";
+      copyBtn.textContent = success ? "Copied!" : "Copy Failed";
       setTimeout(() => {
         copyBtn.textContent = "Copy";
       }, 2000);
@@ -102,13 +109,12 @@ firebase.auth().onAuthStateChanged(async user => {
   });
 
   // Add copy button functionality
-  document.getElementById("copy-btn").addEventListener("click", () => {
-    const shortUrl = document.getElementById("shortUrl");
-    shortUrl.select();
-    document.execCommand("copy");
+  document.getElementById("copy-btn").addEventListener("click", async () => {
+    const shortUrl = document.getElementById("displayUrl").textContent;
+    const success = await copyToClipboard(shortUrl);
     
     const copyBtn = document.getElementById("copy-btn");
-    copyBtn.textContent = "Copied!";
+    copyBtn.textContent = success ? "Copied!" : "Copy Failed";
     setTimeout(() => {
       copyBtn.textContent = "Copy";
     }, 2000);
