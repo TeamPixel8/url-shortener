@@ -9,6 +9,14 @@ const firebaseConfig = {
   measurementId: "G-WD3LVT2QY3"
 };
 
+firebase.auth().onAuthStateChanged(user => {
+  if (!user) {
+    firebase.auth().signInAnonymously()
+      .then(() => console.log("Signed in anonymously"))
+      .catch(err => console.error(err));
+  }
+});
+
 firebase.initializeApp(firebaseConfig);
 const db = firebase.firestore();
 
