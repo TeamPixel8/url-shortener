@@ -36,6 +36,11 @@ function ensureUrlProtocol(url) {
   return url;
 }
 
+// Helper to get display URL (without protocol)
+function getDisplayUrl(url) {
+  return url.replace(/^https?:\/\//, '');
+}
+
 // Wait for auth before setting up app
 firebase.auth().onAuthStateChanged(async user => {
   if (!user) {
@@ -73,15 +78,39 @@ firebase.auth().onAuthStateChanged(async user => {
 
       const shortUrl = `pxl8.app/?go=${shortCode}`;
       document.getElementById("result").classList.remove("hidden");
+      
+      // Set the full URL in the hidden input for copying
       document.getElementById("shortUrl").value = shortUrl;
+      
+      // Display the shorter version
+      document.getElementById("displayUrl").textContent = shortUrl;
       
       // Copy to clipboard
       document.getElementById("shortUrl").select();
       document.execCommand("copy");
-      alert("URL copied to clipboard!");
+      
+      // Update copy button text
+      const copyBtn = document.getElementById("copy-btn");
+      copyBtn.textContent = "Copied!";
+      setTimeout(() => {
+        copyBtn.textContent = "Copy";
+      }, 2000);
     } catch (err) {
       console.error("❌ Firestore write error:", err);
       alert("Failed to shorten URL. Please try again later.");
     }
+  });
+
+  // Add copy button functionality
+  document.getElementById("copy-btn").addEventListener("click", () => {
+    const shortUrl = document.getElementById("shortUrl");
+    shortUrl.select();
+    document.execCommand("copy");
+    
+    const copyBtn = document.getElementById("copy-btn");
+    copyBtn.textContent = "Copied!";
+    setTimeout(() => {
+      copyBtn.textContent = "Copy";
+    }, 2000);
   });
 });

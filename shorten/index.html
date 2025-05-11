@@ -21,7 +21,12 @@
 
     <div id="result" class="hidden">
       <p>Your short link:</p>
-      <input id="shortUrl" readonly />
+      <div class="url-display">
+        <span id="displayUrl" class="short-url"></span>
+        <button id="copy-btn" class="copy-btn">Copy</button>
+      </div>
+      <!-- Hidden input for copying -->
+      <input id="shortUrl" type="hidden" />
     </div>
   </div>
 
